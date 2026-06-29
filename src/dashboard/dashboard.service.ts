@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { DashboardSummary } from '../common/interfaces/transaction.interface';
-import { MOCK_TRANSACTIONS } from '../common/data/mock-data';
+import { TransactionsService } from '../transactions/transactions.service';
 
 @Injectable()
 export class DashboardService {
-  getSummary(): DashboardSummary {
-    const totalIncome = MOCK_TRANSACTIONS
+  constructor(private readonly transactionsService: TransactionsService) {}
+
+  async getSummary(): Promise<DashboardSummary> {
+    const transactions = await this.transactionsService.findAll();
+
+    const totalIncome = transactions
       .filter((t) => t.type === 'income' && t.status === 'completed')
       .reduce((sum, t) => sum + t.amount, 0);
 
-    const totalExpenses = MOCK_TRANSACTIONS
+    const totalExpenses = transactions
       .filter((t) => t.type === 'expense' && t.status === 'completed')
       .reduce((sum, t) => sum + t.amount, 0);
 
-    const pendingTransactions = MOCK_TRANSACTIONS.filter(
+    const pendingTransactions = transactions.filter(
       (t) => t.status === 'pending',
     ).length;
 

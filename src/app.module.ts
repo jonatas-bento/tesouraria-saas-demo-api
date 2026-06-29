@@ -1,14 +1,38 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { HealthModule } from './health/health.module';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { TransactionsModule } from './transactions/transactions.module';
 import { BalanceSheetModule } from './balance-sheet/balance-sheet.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { DemoModule } from './demo/demo.module';
+import { HealthModule } from './health/health.module';
 import { ReportsModule } from './reports/reports.module';
+import { TransactionsModule } from './transactions/transactions.module';
+
+const dataDirectory = join(process.cwd(), 'data');
+
+if (!existsSync(dataDirectory)) {
+  mkdirSync(dataDirectory, { recursive: true });
+}
 
 @Module({
-  imports: [HealthModule, DashboardModule, TransactionsModule, BalanceSheetModule, ReportsModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: join(dataDirectory, 'demo.sqlite'),
+      autoLoadEntities: true,
+      synchronize: true,
+      logging: false,
+    }),
+    HealthModule,
+    DashboardModule,
+    TransactionsModule,
+    BalanceSheetModule,
+    ReportsModule,
+    DemoModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
