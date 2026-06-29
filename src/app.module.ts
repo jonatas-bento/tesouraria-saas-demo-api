@@ -8,6 +8,7 @@ import { BalanceSheetModule } from './balance-sheet/balance-sheet.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DemoModule } from './demo/demo.module';
 import { HealthModule } from './health/health.module';
+import { MembersModule } from './members/members.module';
 import { ReportsModule } from './reports/reports.module';
 import { TransactionsModule } from './transactions/transactions.module';
 
@@ -31,6 +32,7 @@ if (!existsSync(dataDirectory)) {
     TransactionsModule,
     BalanceSheetModule,
     ReportsModule,
+    MembersModule,
     DemoModule,
   ],
   controllers: [AppController],
