@@ -5,6 +5,7 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BalanceSheetModule } from './balance-sheet/balance-sheet.module';
+import { CashBatchesModule } from './cash-batches/cash-batches.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DemoModule } from './demo/demo.module';
 import { HealthModule } from './health/health.module';
@@ -33,6 +34,7 @@ if (!existsSync(dataDirectory)) {
     BalanceSheetModule,
     ReportsModule,
     MembersModule,
+    CashBatchesModule,
     DemoModule,
   ],
   controllers: [AppController],

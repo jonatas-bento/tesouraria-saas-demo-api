@@ -32,6 +32,9 @@ export class TransactionEntity {
   @Column({ type: 'varchar', length: 20, default: 'pending' })
   status!: TransactionStatus;
 
+  @Column({ name: 'batch_id', type: 'varchar', length: 36, nullable: true })
+  batchId!: string | null;
+
   @CreateDateColumn({ name: 'created_at', type: 'datetime' })
   createdAt!: Date;
 

@@ -127,6 +127,7 @@ export class TransactionsService implements OnModuleInit {
         category: transaction.category,
         type: transaction.type,
         status: transaction.status,
+        batchId: null,
       }),
     );
 

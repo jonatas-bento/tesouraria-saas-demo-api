@@ -6,6 +6,7 @@ export interface Transaction {
   category: string;
   type: 'income' | 'expense';
   status: 'pending' | 'completed' | 'cancelled';
+  batchId?: string | null;
 }
 
 export interface DashboardSummary {
